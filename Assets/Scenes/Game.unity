@@ -283,6 +283,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 67981984}
   m_CullTransparentMesh: 1
+--- !u!114 &145495121 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7607531816578841954, guid: 27b98222f47b34014973d9c851239105, type: 3}
+  m_PrefabInstance: {fileID: 6239743360634765888}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab4f6e3fb9240439efb17a249873297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &151533193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1692,6 +1703,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 251d24d8daee4427be26ce5f28a7c54e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &743779011 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1441963155043565985, guid: 27b98222f47b34014973d9c851239105, type: 3}
+  m_PrefabInstance: {fileID: 6239743360634765888}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab4f6e3fb9240439efb17a249873297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &747106280
@@ -5241,6 +5263,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5689334860062126747, guid: 27b98222f47b34014973d9c851239105, type: 3}
+      propertyPath: tiles.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5689334860062126747, guid: 27b98222f47b34014973d9c851239105, type: 3}
+      propertyPath: tiles.Array.data[0]
+      value: 
+      objectReference: {fileID: 743779011}
+    - target: {fileID: 5689334860062126747, guid: 27b98222f47b34014973d9c851239105, type: 3}
+      propertyPath: tiles.Array.data[1]
+      value: 
+      objectReference: {fileID: 145495121}
     - target: {fileID: 5848175665573957641, guid: 27b98222f47b34014973d9c851239105, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

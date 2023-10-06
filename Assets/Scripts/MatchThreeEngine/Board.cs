@@ -178,11 +178,7 @@ namespace MatchThreeEngine
 			tile1.icon = icon2;
 			tile2.icon = icon1;
 
-			var tile1Item = tile1.Type;
-
-			tile1.Type = tile2.Type;
-
-			tile2.Type = tile1Item;
+			(tile1.Type, tile2.Type) = (tile2.Type, tile1.Type);
 
 			_isSwapping = false;
 		}

@@ -4,16 +4,12 @@ namespace MatchThreeEngine
 {
 	public static class TileDataMatrixUtility
 	{
-		public static void Swap(int x1, int y1, int x2, int y2, TileData[,] tiles)
+		private static void Swap(int x1, int y1, int x2, int y2, TileData[,] tiles)
 		{
-			var tile1 = tiles[x1, y1];
-
-			tiles[x1, y1] = tiles[x2, y2];
-
-			tiles[x2, y2] = tile1;
+			(tiles[x1, y1], tiles[x2, y2]) = (tiles[x2, y2], tiles[x1, y1]);
 		}
 
-		public static (TileData[], TileData[]) GetConnections(int originX, int originY, TileData[,] tiles)
+		private static (TileData[], TileData[]) GetConnections(int originX, int originY, TileData[,] tiles)
 		{
 			var origin = tiles[originX, originY];
 
@@ -27,7 +23,11 @@ namespace MatchThreeEngine
 			{
 				var other = tiles[x, originY];
 
-				if (other.TypeId != origin.TypeId) break;
+				if (other.TypeId != origin.TypeId)
+				{
+					break;
+				}
+				
 
 				horizontalConnections.Add(other);
 			}
