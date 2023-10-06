@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace MatchThreeEngine
 {
@@ -27,7 +28,6 @@ namespace MatchThreeEngine
 				{
 					break;
 				}
-				
 
 				horizontalConnections.Add(other);
 			}
@@ -82,7 +82,10 @@ namespace MatchThreeEngine
 					{
 						bestMatch = match;
 					}
-					else if (match.Score > bestMatch.Score) bestMatch = match;
+					else if (match.Score > bestMatch.Score)
+					{
+						bestMatch = match;
+					}
 				}
 			}
 

@@ -25,6 +25,10 @@ namespace MatchThreeEngine
 				_type = value;
 
 				icon.sprite = _type.sprite;
+				icon.SetNativeSize();
+				RectTransform iconRect = icon.GetComponent<RectTransform>();
+				iconRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,iconRect.rect.width/7f);
+				iconRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,iconRect.rect.height/7f);
 			}
 		}
 
