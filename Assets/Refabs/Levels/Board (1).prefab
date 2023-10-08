@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b6ec82f2e7648bc8496f897f3212a9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileTypes:
+  _tileTypes:
   - {fileID: 11400000, guid: 8e3699dbe4c1b43a49e23e887e6b98fc, type: 2}
   - {fileID: 11400000, guid: e69da2332f4b14114879f3bcc8bcb395, type: 2}
   - {fileID: 11400000, guid: 774828270eb9244fcbb722cd16b96ded, type: 2}
@@ -90,17 +90,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 09f8eb3a2930a444ca360640c7bbaa02, type: 2}
   - {fileID: 11400000, guid: 4af36415d801d4c6d8c4e690da80842d, type: 2}
   - {fileID: 11400000, guid: c395dcb262a954e758fbee01ee2a5e26, type: 2}
-  rows:
+  _rows:
   - {fileID: 5466160065752674650}
   - {fileID: 2108729268212861363}
   - {fileID: 2108729267443801153}
   - {fileID: 2108729267015402514}
   - {fileID: 2108729268087523322}
-  matchSound: {fileID: 0}
-  audioSource: {fileID: 0}
-  tweenDuration: 0.25
-  swappingOverlay: {fileID: 0}
-  ensureNoStartingMatches: 1
+  _tweenDuration: 0.5
+  _swappingOverlay: {fileID: 0}
+  _ensureNoStartingMatches: 1
 --- !u!1001 &373552989612458945
 PrefabInstance:
   m_ObjectHideFlags: 0

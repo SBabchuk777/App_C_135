@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MatchThreeEngine
+namespace Views.Game
 {
 	public sealed class Row : MonoBehaviour
 	{

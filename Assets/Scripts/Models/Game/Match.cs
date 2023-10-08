@@ -1,4 +1,4 @@
-﻿namespace MatchThreeEngine
+﻿namespace Models.Game
 {
 	public sealed class Match
 	{

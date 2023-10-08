@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿using Models.Game;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace MatchThreeEngine
+namespace Views.Game
 {
 	public sealed class Tile : MonoBehaviour
 	{
+		[SerializeField] 
+		private bool _isNotSwap;
+		
 		public int x;
 		public int y;
 
@@ -32,6 +36,6 @@ namespace MatchThreeEngine
 			}
 		}
 
-		public TileData Data => new TileData(x, y, _type.id);
+		public TileData Data => new TileData(x, y, _type.id, _isNotSwap);
 	}
 }

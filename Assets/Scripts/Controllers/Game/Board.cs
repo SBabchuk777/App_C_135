@@ -3,28 +3,36 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DG.Tweening;
+
 using UnityEngine;
+using DG.Tweening;
+
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
-namespace MatchThreeEngine
+using Models.Game;
+using Views.Game;
+
+namespace Controllers.Game
 {
 	public sealed class Board : MonoBehaviour
 	{
-		[SerializeField] private TileTypeAsset[] tileTypes;
+		public Action CellsSwappedAction
+		{
+			get;
+			set;
+		}
 
-		[SerializeField] private Row[] rows;
-
-		[SerializeField] private AudioClip matchSound;
-
-		[SerializeField] private AudioSource audioSource;
-
-		[SerializeField] private float tweenDuration;
-
-		[SerializeField] private Transform swappingOverlay;
-
-		[SerializeField] private bool ensureNoStartingMatches;
+		[SerializeField] 
+		private TileTypeAsset[] _tileTypes;
+		[SerializeField] 
+		private Row[] _rows;
+		[SerializeField] 
+		private float _tweenDuration;
+		[SerializeField] 
+		private Transform _swappingOverlay;
+		[SerializeField] 
+		private bool _ensureNoStartingMatches;
 
 		private readonly List<Tile> _selection = new List<Tile>();
 
@@ -34,12 +42,17 @@ namespace MatchThreeEngine
 
 		public event Action<TileTypeAsset, int> OnMatch;
 
+		public void SetSwappingOverlayTransform(Transform swappingOverlay)
+		{
+			_swappingOverlay = swappingOverlay;
+		}
+
 		private TileData[,] Matrix
 		{
 			get
 			{
-				var width = rows.Max(row => row.tiles.Length);
-				var height = rows.Length;
+				var width = _rows.Max(row => row.tiles.Length);
+				var height = _rows.Length;
 
 				var data = new TileData[width, height];
 
@@ -53,22 +66,22 @@ namespace MatchThreeEngine
 
 		private void Start()
 		{
-			for (var y = 0; y < rows.Length; y++)
+			for (var y = 0; y < _rows.Length; y++)
 			{
-				for (var x = 0; x < rows.Max(row => row.tiles.Length); x++)
+				for (var x = 0; x < _rows.Max(row => row.tiles.Length); x++)
 				{
 					var tile = GetTile(x, y);
 
 					tile.x = x;
 					tile.y = y;
 
-					tile.Type = tileTypes[Random.Range(0, tileTypes.Length)];
+					tile.Type = _tileTypes[Random.Range(0, _tileTypes.Length)];
 
 					tile.button.onClick.AddListener(() => Select(tile));
 				}
 			}
 
-			if (ensureNoStartingMatches) StartCoroutine(EnsureNoStartingMatches());
+			if (_ensureNoStartingMatches) StartCoroutine(EnsureNoStartingMatches());
 
 			OnMatch += (type, count) => Debug.Log($"Matched {count}x {type.name}.");
 		}
@@ -99,7 +112,7 @@ namespace MatchThreeEngine
 			}
 		}
 
-		private Tile GetTile(int x, int y) => rows[y].tiles[x];
+		private Tile GetTile(int x, int y) => _rows[y].tiles[x];
 
 		private Tile[] GetTiles(IList<TileData> tileData)
 		{
@@ -158,16 +171,16 @@ namespace MatchThreeEngine
 			var icon1Transform = icon1.transform;
 			var icon2Transform = icon2.transform;
 
-			icon1Transform.SetParent(swappingOverlay);
-			icon2Transform.SetParent(swappingOverlay);
+			icon1Transform.SetParent(_swappingOverlay);
+			icon2Transform.SetParent(_swappingOverlay);
 
 			icon1Transform.SetAsLastSibling();
 			icon2Transform.SetAsLastSibling();
 
 			var sequence = DOTween.Sequence();
 
-			sequence.Join(icon1Transform.DOMove(icon2Transform.position, tweenDuration).SetEase(Ease.OutBack))
-			        .Join(icon2Transform.DOMove(icon1Transform.position, tweenDuration).SetEase(Ease.OutBack));
+			sequence.Join(icon1Transform.DOMove(icon2Transform.position, _tweenDuration).SetEase(Ease.OutBack))
+			        .Join(icon2Transform.DOMove(icon1Transform.position, _tweenDuration).SetEase(Ease.OutBack));
 
 			await sequence.Play()
 			              .AsyncWaitForCompletion();
@@ -199,10 +212,10 @@ namespace MatchThreeEngine
 
 				var deflateSequence = DOTween.Sequence();
 
-				foreach (var tile in tiles) deflateSequence.Join(tile.icon.transform.DOScale(Vector3.zero, tweenDuration).SetEase(Ease.InBack));
+				foreach (var tile in tiles) deflateSequence.Join(tile.icon.transform.DOScale(Vector3.zero, _tweenDuration).SetEase(Ease.InBack));
 
-				audioSource.PlayOneShot(matchSound);
-
+				CellsSwappedAction.Invoke();
+				
 				await deflateSequence.Play()
 				                     .AsyncWaitForCompletion();
 
@@ -210,15 +223,15 @@ namespace MatchThreeEngine
 
 				foreach (var tile in tiles)
 				{
-					tile.Type = tileTypes[Random.Range(0, tileTypes.Length)];
+					tile.Type = _tileTypes[Random.Range(0, _tileTypes.Length)];
 
-					inflateSequence.Join(tile.icon.transform.DOScale(Vector3.one, tweenDuration).SetEase(Ease.OutBack));
+					inflateSequence.Join(tile.icon.transform.DOScale(Vector3.one, _tweenDuration).SetEase(Ease.OutBack));
 				}
 
 				await inflateSequence.Play()
 				                     .AsyncWaitForCompletion();
 
-				OnMatch?.Invoke(Array.Find(tileTypes, tileType => tileType.id == match.TypeId), match.Tiles.Length);
+				OnMatch?.Invoke(Array.Find(_tileTypes, tileType => tileType.id == match.TypeId), match.Tiles.Length);
 
 				match = TileDataMatrixUtility.FindBestMatch(Matrix);
 			}
@@ -232,9 +245,9 @@ namespace MatchThreeEngine
 		{
 			_isShuffling = true;
 
-			foreach (var row in rows)
+			foreach (var row in _rows)
 				foreach (var tile in row.tiles)
-					tile.Type = tileTypes[Random.Range(0, tileTypes.Length)];
+					tile.Type = _tileTypes[Random.Range(0, _tileTypes.Length)];
 
 			_isShuffling = false;
 		}

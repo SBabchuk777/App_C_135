@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace MatchThreeEngine
+namespace Models.Game
 {
 	public static class TileDataMatrixUtility
 	{
@@ -24,39 +24,51 @@ namespace MatchThreeEngine
 			{
 				var other = tiles[x, originY];
 
-				if (other.TypeId != origin.TypeId)
+				if (other.TypeId != origin.TypeId || other.IsNotSwap || origin.IsNotSwap)
 				{
 					break;
 				}
 
-				horizontalConnections.Add(other);
+				if (horizontalConnections.Count + verticalConnections.Count < 2)
+				{
+					horizontalConnections.Add(other);
+				}
 			}
 
 			for (var x = originX + 1; x < width; x++)
 			{
 				var other = tiles[x, originY];
 
-				if (other.TypeId != origin.TypeId) break;
+				if (other.TypeId != origin.TypeId || other.IsNotSwap || origin.IsNotSwap) break;
 
-				horizontalConnections.Add(other);
+				if (horizontalConnections.Count + verticalConnections.Count < 2)
+				{
+					horizontalConnections.Add(other);
+				}
 			}
 
 			for (var y = originY - 1; y >= 0; y--)
 			{
 				var other = tiles[originX, y];
 
-				if (other.TypeId != origin.TypeId) break;
+				if (other.TypeId != origin.TypeId || other.IsNotSwap || origin.IsNotSwap) break;
 
-				verticalConnections.Add(other);
+				if (horizontalConnections.Count + verticalConnections.Count < 2)
+				{
+					verticalConnections.Add(other);
+				}
 			}
 
 			for (var y = originY + 1; y < height; y++)
 			{
 				var other = tiles[originX, y];
 
-				if (other.TypeId != origin.TypeId) break;
+				if (other.TypeId != origin.TypeId || other.IsNotSwap || origin.IsNotSwap) break;
 
-				verticalConnections.Add(other);
+				if (horizontalConnections.Count + verticalConnections.Count < 2)
+				{
+					verticalConnections.Add(other);
+				}
 			}
 
 			return (horizontalConnections.ToArray(), verticalConnections.ToArray());
@@ -92,27 +104,6 @@ namespace MatchThreeEngine
 			return bestMatch;
 		}
 
-		public static List<Match> FindAllMatches(TileData[,] tiles)
-		{
-			var matches = new List<Match>();
-
-			for (var y = 0; y < tiles.GetLength(1); y++)
-			{
-				for (var x = 0; x < tiles.GetLength(0); x++)
-				{
-					var tile = tiles[x, y];
-
-					var (h, v) = GetConnections(x, y, tiles);
-
-					var match = new Match(tile, h, v);
-
-					if (match.Score > -1) matches.Add(match);
-				}
-			}
-
-			return matches;
-		}
-
 		private static (int, int) GetDirectionOffset(byte direction) => direction switch
 		{
 			0 => (-1, 0),
@@ -122,38 +113,6 @@ namespace MatchThreeEngine
 
 			_ => (0, 0),
 		};
-
-		public static Move FindMove(TileData[,] tiles)
-		{
-			var tilesCopy = (TileData[,])tiles.Clone();
-
-			var width = tilesCopy.GetLength(0);
-			var height = tilesCopy.GetLength(1);
-
-			for (var y = 0; y < height; y++)
-			{
-				for (var x = 0; x < width; x++)
-				{
-					for (byte d = 0; d <= 3; d++)
-					{
-						var (offsetX, offsetY) = GetDirectionOffset(d);
-
-						var x2 = x + offsetX;
-						var y2 = y + offsetY;
-
-						if (x2 < 0 || x2 > width - 1 || y2 < 0 || y2 > height - 1) continue;
-
-						Swap(x, y, x2, y2, tilesCopy);
-
-						if (FindBestMatch(tilesCopy) != null) return new Move(x, y, x2, y2);
-
-						Swap(x2, y2, x, y, tilesCopy);
-					}
-				}
-			}
-
-			return null;
-		}
 
 		public static Move FindBestMove(TileData[,] tiles)
 		{
@@ -177,7 +136,15 @@ namespace MatchThreeEngine
 						var x2 = x + offsetX;
 						var y2 = y + offsetY;
 
-						if (x2 < 0 || x2 > width - 1 || y2 < 0 || y2 > height - 1) continue;
+						if (x2 < 0 || x2 > width - 1 || y2 < 0 || y2 > height - 1)
+						{
+							continue;
+						}
+
+						if (tilesCopy[x2, y2].IsNotSwap || tilesCopy[x, y].IsNotSwap)
+						{
+							continue;
+						}
 
 						Swap(x, y, x2, y2, tilesCopy);
 

@@ -1,4 +1,4 @@
-﻿namespace MatchThreeEngine
+﻿namespace Models.Game
 {
 	public readonly struct TileData
 	{
@@ -7,12 +7,16 @@
 
 		public readonly int TypeId;
 
-		public TileData(int x, int y, int typeId)
+		public readonly bool IsNotSwap;
+
+		public TileData(int x, int y, int typeId, bool isNotSwap)
 		{
 			X = x;
 			Y = y;
 
 			TypeId = typeId;
+
+			IsNotSwap = isNotSwap;
 		}
 	}
 }
