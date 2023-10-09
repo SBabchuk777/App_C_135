@@ -228,11 +228,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4544f4e7a1ae84d04924186c3b8b66b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _soundSource: {fileID: 412257027}
   _prizeZoneView: {fileID: 1693763743}
   _wheelView: {fileID: 1946069204}
   _coinCountText: {fileID: 831272468}
   _spinBtn: {fileID: 1442655779}
   _closeBtn: {fileID: 1849387354}
+  _clickClip: {fileID: 8300000, guid: 4a628f4ac790b4f7e978c08745eafb07, type: 3}
+  _rotationWheelClip: {fileID: 8300000, guid: 89fc39959fae24932ae751d487200b15, type: 3}
+  _winClip: {fileID: 8300000, guid: 65b067b9185ce455dbd794da4f96f8a2, type: 3}
+  _loseClip: {fileID: 8300000, guid: d6a0364a5b12d40e0b533119dc5368a2, type: 3}
 --- !u!4 &94844484
 Transform:
   m_ObjectHideFlags: 0
@@ -983,7 +988,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 37173739eb73045bea04534669531a84, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1954,4 +1959,4 @@ MonoBehaviour:
   _angles: 1e0000003c0000005a0000007800000096000000b4000000d2000000f00000000e0100002c0100004a01000068010000
   _prizes: d007000000000000f40100002800000064000000e8030000ffffffff881300002c010000f40100000000000014000000
   _wheelRect: {fileID: 791535097}
-  _speed: 2
+  _speed: 3

@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -21,6 +23,11 @@ namespace Controllers.SceneControllers
         private Button _closeBtn;
         [SerializeField] 
         private Button _nextLevelBtn;
+        [Space(5)] [Header("AudioClips")] 
+        [SerializeField]
+        private AudioClip _clickClip;
+        [SerializeField] 
+        private AudioClip _winClip;
 
         private GameModel _model;
 
@@ -36,7 +43,7 @@ namespace Controllers.SceneControllers
 
         protected override void OnStartScene()
         {
-            
+            PlaySound(_winClip);
         }
 
         protected override void OnDisableScene()
@@ -57,6 +64,15 @@ namespace Controllers.SceneControllers
 
         private void LoadScene(string nameScene)
         {
+            PlaySound(_clickClip);
+
+            StartCoroutine(DelayLoadScene(nameScene));
+        }
+
+        private IEnumerator DelayLoadScene(string nameScene)
+        {
+            yield return new WaitForSeconds(0.3f);
+            
             SceneManager.LoadScene(nameScene);
         }
     }

@@ -23,6 +23,12 @@ namespace Controllers.Game
 			set;
 		}
 
+		public Action<int> PressBtnAction
+		{
+			get;
+			set;
+		}
+
 		[SerializeField] 
 		private TileTypeAsset[] _tileTypes;
 		[SerializeField] 
@@ -141,13 +147,9 @@ namespace Controllers.Game
 
 		private async void Select(Tile tile)
 		{
-			Debug.Log("SameCells" + _isDestroyingSameCells);
-			Debug.Log("Swapping" + _isSwapping);
-			Debug.Log("Matching" + _isMatching);
-			Debug.Log("OneColumn" + _isDestroyingOneColumn);
-			Debug.Log("Shuffling" + _isShuffling);
-			
 			if (_isSwapping || _isMatching || _isShuffling || _isDestroyingSameCells || _isDestroyingOneColumn) return;
+			
+			PressBtnAction.Invoke(0);
 
 			if (_canDestroyingSameCells)
 			{
@@ -250,6 +252,11 @@ namespace Controllers.Game
 			_isMatching = true;
 
 			var match = TileDataMatrixUtility.FindBestMatch(Matrix);
+
+			if (match == null)
+			{
+				PressBtnAction.Invoke(1);
+			}
 
 			while (match != null)
 			{

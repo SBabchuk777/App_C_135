@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,6 +17,9 @@ namespace Controllers.SceneControllers
         [Space(5)] [Header("Texts")] 
         [SerializeField]
         private Text _coinCountText;
+        [Space(5)] [Header("AudioClips")] 
+        [SerializeField]
+        private AudioClip _clickClip;
         
         protected override void OnEnableScene()
         {
@@ -45,6 +49,15 @@ namespace Controllers.SceneControllers
 
         private void LoadScene(string nameScene)
         {
+            PlaySound(_clickClip);
+
+            StartCoroutine(DelayLoadScene(nameScene));
+        }
+
+        private IEnumerator DelayLoadScene(string nameScene)
+        {
+            yield return new WaitForSeconds(0.3f);
+            
             SceneManager.LoadScene(nameScene);
         }
     }

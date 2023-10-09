@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,6 +26,9 @@ namespace Controllers.SceneControllers
         private Button _ppBtn;
         [SerializeField] 
         private Button _termsBtn;
+        [Space(5)] [Header("AudioClips")] 
+        [SerializeField]
+        private AudioClip _clickClip;
 
         protected override void OnEnableScene()
         {
@@ -66,25 +70,37 @@ namespace Controllers.SceneControllers
 
         private void ChangeSoundTurn()
         {
-            TurnOnSound = TurnOnSound == 0 ? 1 : 0;
+            SetClickSound();
             
+            ChangeTurnSound();
             SetSpriteSoundSwitcher();
+            
         }
 
         private void ChangeMusicTurn()
         {
-            TurnOnMusic = TurnOnMusic == 0 ? 1 : 0;
+            SetClickSound();
             
+            ChangeTurnMusic();
             SetSpriteMusicSwitcher();
         }
 
         private void SetClickSound()
         {
-            
+            PlaySound(_clickClip);
         }
 
         private void LoadSceneMenu()
         {
+            SetClickSound();
+
+            StartCoroutine(DelayLoadScene());
+        }
+        
+        private IEnumerator DelayLoadScene()
+        {
+            yield return new WaitForSeconds(0.3f);
+            
             SceneManager.LoadScene("Menu");
         }
     }

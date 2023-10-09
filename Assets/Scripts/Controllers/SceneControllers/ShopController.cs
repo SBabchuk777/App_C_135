@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Models.Game;
 using Tools.UnityAdsService.Scripts;
@@ -21,6 +22,9 @@ namespace Controllers.SceneControllers
         [Space(5)] [Header("AdButtons")] 
         [SerializeField]
         private List<UnityAdsButton> _adButtons;
+        [Space(5)] [Header("AudioClips")] 
+        [SerializeField]
+        private AudioClip _clickClip;
 
         private GameModel _model;
         
@@ -63,6 +67,8 @@ namespace Controllers.SceneControllers
 
         private void PressBuyFirstBoostBtn()
         {
+            SetClickClip();
+            
             _model.SameCellsBoosterCount++;
             CoinCount -= 100;
             CheckActiveBuyBtns();
@@ -71,6 +77,8 @@ namespace Controllers.SceneControllers
         
         private void PressBuySecondBoostBtn()
         {
+            SetClickClip();
+            
             _model.OneColumnBoosterCount++;
             CoinCount -= 100;
             CheckActiveBuyBtns();
@@ -91,8 +99,22 @@ namespace Controllers.SceneControllers
             CheckActiveBuyBtns();
         }
 
+        private void SetClickClip()
+        {
+            PlaySound(_clickClip);
+        }
+
         private void LoadSceneMenu()
         {
+            SetClickClip();
+
+            StartCoroutine(DelayLoadScene());
+        }
+        
+        private IEnumerator DelayLoadScene()
+        {
+            yield return new WaitForSeconds(0.3f);
+            
             SceneManager.LoadScene("Menu");
         }
     }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -27,6 +29,10 @@ namespace Controllers.SceneControllers
         private AudioClip _clickClip;
         [SerializeField] 
         private AudioClip _rotationWheelClip;
+        [SerializeField] 
+        private AudioClip _winClip;
+        [SerializeField] 
+        private AudioClip _loseClip;
 
         private BonusModel _model;
 
@@ -38,7 +44,7 @@ namespace Controllers.SceneControllers
             
             UpdateCoinCountText();
             
-            _closeBtn.onClick.AddListener(LoadSceneMenu);
+            _closeBtn.onClick.AddListener(delegate { LoadSceneMenu(true); });
             _spinBtn.onClick.AddListener(StartAnim);
         }
 
@@ -60,6 +66,7 @@ namespace Controllers.SceneControllers
 
         private void StartAnim()
         {
+            PlaySound(_rotationWheelClip);
             _spinBtn.interactable = false;
             _wheelView.StartRotateWheel();
             _wheelView.RotationEndAction += EndRotation;
@@ -70,9 +77,17 @@ namespace Controllers.SceneControllers
             if (value == -1)
             {
                 _spinBtn.interactable = true;
+                PlaySound(_loseClip);
+            }
+            else if(value == 0)
+            {
+                PlaySound(_loseClip);
+                _prizeZoneView.gameObject.SetActive(true);
+                _prizeZoneView.UpdateText(value);
             }
             else
             {
+                PlaySound(_winClip);
                 CoinCount += value;
                 _prizeZoneView.gameObject.SetActive(true);
                 _prizeZoneView.UpdateText(value);
@@ -80,19 +95,31 @@ namespace Controllers.SceneControllers
             }
         }
 
-        private void LoadSceneMenu()
+        private void LoadSceneMenu(bool isClick)
         {
             _model.LastDayOpen = DateTime.Now.Day;
-            
-            SceneManager.LoadScene("Menu");
+
+            if (isClick)
+            {
+                PlaySound(_clickClip);
+            }
+
+            StartCoroutine(DelayLoadScene());
         }
 
         private void CheckLastDay()
         {
             if (!_model.CanRotateWheel)
             {
-                LoadSceneMenu();
+                LoadSceneMenu(false);
             }
+        }
+
+        private IEnumerator DelayLoadScene()
+        {
+            yield return new WaitForSeconds(0.3f);
+            
+            SceneManager.LoadScene("Menu");
         }
     }
 }

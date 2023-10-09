@@ -39,6 +39,13 @@ namespace Controllers.SceneControllers
         private Button _destroyOneColumnBtn;
         [SerializeField] 
         private Button _backBtn;
+        [Space(5)] [Header("AudioClips")] 
+        [SerializeField]
+        private AudioClip _clickClip;
+        [SerializeField] 
+        private AudioClip _rightMove;
+        [SerializeField] 
+        private AudioClip _wrongMove;
 
         private Board _boardController;
         private GameModel _model;
@@ -58,7 +65,7 @@ namespace Controllers.SceneControllers
             
             _destroySameCellsBtn.onClick.AddListener(DestroySameCells);
             _destroyOneColumnBtn.onClick.AddListener(DestroyOneColumn);
-            _backBtn.onClick.AddListener(delegate { LoadScene("Menu"); });
+            _backBtn.onClick.AddListener(delegate { LoadScene("Menu", true); });
         }
 
         protected override void OnStartScene()
@@ -91,6 +98,7 @@ namespace Controllers.SceneControllers
             
             _boardController.SetSwappingOverlayTransform(_swappingOverlayRectTransform);
             _boardController.CellsSwappedAction += AddPoints;
+            _boardController.PressBtnAction += CheckPressBtn;
 
             _isGaming = true;
             
@@ -117,6 +125,8 @@ namespace Controllers.SceneControllers
                     CheckCountBooster();
                     break;
             }
+            
+            SetSound(_rightMove);
 
             var remainderTarget = _model.RemainderTarget(_currentScore);
             UpdateRemainderTarget(remainderTarget);
@@ -147,10 +157,11 @@ namespace Controllers.SceneControllers
             {
                 case 0 :
                     _targetPanelView.gameObject.SetActive(false);
+                    SetSound(_clickClip);
                     StartGame();
                     break;
                 case 1:
-                    LoadScene("Menu");
+                    LoadScene("Menu", true);
                     break;
             }
         }
@@ -161,6 +172,7 @@ namespace Controllers.SceneControllers
             {
                 _boardController.ChangeCanDestroySameCells();
                 _destroySameCellsBtn.interactable = false;
+                SetSound(_clickClip);
             }
         }
 
@@ -170,6 +182,7 @@ namespace Controllers.SceneControllers
             {
                 _boardController.ChangeCanDestroyOneColumn();
                 _destroyOneColumnBtn.interactable = false;
+                SetSound(_clickClip);
             }
         }
 
@@ -182,9 +195,32 @@ namespace Controllers.SceneControllers
             _boosterZoneView.SetActiveBoosters(1, _model.OneColumnBoosterCount > 0);
         }
 
-        private void LoadScene(string sceneName)
+        private void CheckPressBtn(int value)
         {
-            SceneManager.LoadScene(sceneName);
+            switch (value)
+            {
+                case 0:
+                    SetSound(_clickClip);
+                    break;
+                case 1:
+                    SetSound(_wrongMove);
+                    break;
+            }
+        }
+
+        private void SetSound(AudioClip clip)
+        {
+            PlaySound(clip);
+        }
+
+        private void LoadScene(string sceneName, bool isClick)
+        {
+            if (isClick)
+            {
+                SetSound(_clickClip);
+            }
+
+            StartCoroutine(DelayLoadScene(sceneName));
         }
 
         private IEnumerator Timer()
@@ -202,7 +238,14 @@ namespace Controllers.SceneControllers
 
             _model.CurrentLevel++;
             
-            LoadScene("Result");
+            LoadScene("Result", false);
+        }
+
+        private IEnumerator DelayLoadScene(string nameScene)
+        {
+            yield return new WaitForSeconds(0.3f);
+            
+            SceneManager.LoadScene(nameScene);
         }
     }
 }
