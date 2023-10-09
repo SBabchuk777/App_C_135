@@ -1103,6 +1103,7 @@ GameObject:
   - component: {fileID: 541876899}
   - component: {fileID: 541876898}
   - component: {fileID: 541876897}
+  - component: {fileID: 541876900}
   m_Layer: 5
   m_Name: AdBtn
   m_TagString: Untagged
@@ -1212,6 +1213,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541876895}
   m_CullTransparentMesh: 1
+--- !u!114 &541876900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541876895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fee4602569ce4379a4407a7ccd7fb9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _countAds: 5
 --- !u!1 &565781585
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,7 +1523,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1823f745bff524713bb9a3d4f586afb5, type: 3}
+  m_Sprite: {fileID: -1173354294, guid: 1823f745bff524713bb9a3d4f586afb5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1556,6 +1570,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1af3f1fb78444038caa27c7c7adc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _coinCountText: {fileID: 165149115}
+  _backBtn: {fileID: 2054658392}
+  _buyFirstBoostBtn: {fileID: 1244150212}
+  _buySecondBoostBtn: {fileID: 82016531}
+  _adButtons:
+  - {fileID: 1902244447}
+  - {fileID: 1551435823}
+  - {fileID: 541876900}
 --- !u!4 &733662459
 Transform:
   m_ObjectHideFlags: 0
@@ -1768,6 +1790,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 902625697}
   m_CullTransparentMesh: 1
+--- !u!1001 &970782151
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2479997051622438321, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479997051622438321, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479997051622438321, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479997051622438321, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479997051622438321, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479997051622438321, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479997051622438321, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479997051622438321, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479997051622438321, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479997051622438321, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479997051622438321, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479997051622438334, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
+      propertyPath: _gameIdIos
+      value: 5437523
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479997051622438334, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
+      propertyPath: _gameIdAndroid
+      value: 5437522
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479997051622438335, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
+      propertyPath: m_Name
+      value: UnityAdsSevice
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
 --- !u!1 &1032180345
 GameObject:
   m_ObjectHideFlags: 0
@@ -2423,6 +2510,7 @@ GameObject:
   - component: {fileID: 1551435822}
   - component: {fileID: 1551435821}
   - component: {fileID: 1551435820}
+  - component: {fileID: 1551435823}
   m_Layer: 5
   m_Name: AdBtn
   m_TagString: Untagged
@@ -2532,6 +2620,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1551435818}
   m_CullTransparentMesh: 1
+--- !u!114 &1551435823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551435818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fee4602569ce4379a4407a7ccd7fb9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _countAds: 3
 --- !u!1 &1684646775
 GameObject:
   m_ObjectHideFlags: 0
@@ -2888,6 +2989,7 @@ GameObject:
   - component: {fileID: 1902244446}
   - component: {fileID: 1902244445}
   - component: {fileID: 1902244444}
+  - component: {fileID: 1902244447}
   m_Layer: 5
   m_Name: AdBtn
   m_TagString: Untagged
@@ -2997,6 +3099,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1902244442}
   m_CullTransparentMesh: 1
+--- !u!114 &1902244447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902244442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fee4602569ce4379a4407a7ccd7fb9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _countAds: 1
 --- !u!1 &1954798094
 GameObject:
   m_ObjectHideFlags: 0
