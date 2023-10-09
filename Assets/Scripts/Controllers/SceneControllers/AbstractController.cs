@@ -7,10 +7,22 @@ namespace Controllers.SceneControllers
     {
         private ControllerModel _model;
 
-        public int CoinCount
+        protected int CoinCount
         {
             get => _model.CoinsCount;
             set => _model.CoinsCount = value;
+        }
+
+        protected int TurnOnMusic
+        {
+            get => _model.TurnOnMusic;
+            set => _model.TurnOnMusic = value;
+        }
+
+        protected int TurnOnSound
+        {
+            get => _model.TurnOnSound;
+            set => _model.TurnOnSound = value;
         }
 
         private void OnEnable()
