@@ -20,6 +20,8 @@ namespace Views.Game
 
 		private TileTypeAsset _type;
 
+		public bool IsNotSwap => _isNotSwap;
+
 		public TileTypeAsset Type
 		{
 			get => _type;
@@ -33,6 +35,7 @@ namespace Views.Game
 				icon.sprite = _type.sprite;
 				icon.SetNativeSize();
 				RectTransform iconRect = icon.GetComponent<RectTransform>();
+				icon.raycastTarget = false;
 				iconRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,iconRect.rect.width/7f);
 				iconRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,iconRect.rect.height/7f);
 			}
@@ -40,7 +43,10 @@ namespace Views.Game
 
 		public void SetSelectedImage(bool value)
 		{
-			_selectedImage.gameObject.SetActive(value);
+			if (!_isNotSwap)
+			{
+				_selectedImage.gameObject.SetActive(value);
+			}
 		}
 
 		public TileData Data => new TileData(x, y, _type.id, _isNotSwap);

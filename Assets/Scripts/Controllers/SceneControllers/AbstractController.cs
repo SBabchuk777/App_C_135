@@ -5,7 +5,11 @@ namespace Controllers.SceneControllers
 {
     public abstract class AbstractController : MonoBehaviour
     {
+        [SerializeField] 
+        private AudioSource _soundSource;
+        
         private ControllerModel _model;
+        private MusicController _musicController;
 
         protected int CoinCount
         {
@@ -28,6 +32,7 @@ namespace Controllers.SceneControllers
         private void OnEnable()
         {
             _model = new ControllerModel();
+            _musicController = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicController>();
             
             OnEnableScene();
         }
@@ -35,6 +40,8 @@ namespace Controllers.SceneControllers
         private void Start()
         {
             OnStartScene();
+            
+            PlayMusic();
         }
 
         private void OnDisable()
@@ -47,5 +54,38 @@ namespace Controllers.SceneControllers
         protected abstract void OnStartScene();
 
         protected abstract void OnDisableScene();
+
+        protected void PlaySound(AudioClip clip)
+        {
+            if (TurnOnSound == 0)
+            {
+                _soundSource.clip = clip;
+                _soundSource.Play();
+            }
+        }
+
+        protected void ChangeTurnSound()
+        {
+            TurnOnSound = TurnOnSound == 0 ? 1 : 0;
+        }
+
+        protected void ChangeTurnMusic()
+        {
+            TurnOnMusic = TurnOnMusic == 0 ? 1 : 0;
+            
+            PlayMusic();
+        }
+
+        private void PlayMusic()
+        {
+            if (TurnOnMusic == 0)
+            {
+                _musicController.PlayMusic();
+            }
+            else
+            {
+                _musicController.StopMusic();
+            }
+        }
     }
 }

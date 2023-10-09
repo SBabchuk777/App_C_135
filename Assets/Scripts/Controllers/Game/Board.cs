@@ -141,13 +141,37 @@ namespace Controllers.Game
 
 		private async void Select(Tile tile)
 		{
+			Debug.Log("SameCells" + _isDestroyingSameCells);
+			Debug.Log("Swapping" + _isSwapping);
+			Debug.Log("Matching" + _isMatching);
+			Debug.Log("OneColumn" + _isDestroyingOneColumn);
+			Debug.Log("Shuffling" + _isShuffling);
+			
 			if (_isSwapping || _isMatching || _isShuffling || _isDestroyingSameCells || _isDestroyingOneColumn) return;
 
-			if (!_selection.Contains(tile))
+			if (_canDestroyingSameCells)
 			{
 				if (_selection.Count > 0)
 				{
-					if (!_canDestroyingSameCells && !_canDestroyOneColumn)
+					_selection.Clear();
+				}
+
+				await DestroySameCells(tile);
+			}
+			else if(_canDestroyOneColumn)
+			{
+				if (_selection.Count > 0)
+				{
+					_selection.Clear();
+				}
+				
+				await DestroyOneColumn(tile);
+			}
+			else
+			{
+				if (!_selection.Contains(tile))
+				{
+					if (_selection.Count > 0)
 					{
 						if (Math.Abs(tile.x - _selection[0].x) == 1 && Math.Abs(tile.y - _selection[0].y) == 0
 						    || Math.Abs(tile.y - _selection[0].y) == 1 && Math.Abs(tile.x - _selection[0].x) == 0)
@@ -159,30 +183,9 @@ namespace Controllers.Game
 							_selection.Clear();
 						}
 					}
-					else if(_canDestroyingSameCells)
+					else
 					{
-						await DestroySameCells(tile);
-						_selection.Clear();
-					}
-					else if(_canDestroyOneColumn)
-					{
-						await DestroyOneColumn(tile);
-						_selection.Clear();
-					}
-				}
-				else
-				{
-					_selection.Add(tile);
-					
-					if (_canDestroyingSameCells)
-					{
-						await DestroySameCells(tile);
-						_selection.Clear();
-					}
-					else if (_canDestroyOneColumn)
-					{
-						await DestroyOneColumn(tile);
-						_selection.Clear();
+						_selection.Add(tile);
 					}
 				}
 			}
@@ -292,7 +295,7 @@ namespace Controllers.Game
 
 		private async Task DestroySameCells(Tile selectedTile)
 		{
-			_isDestroyingOneColumn = true;
+			_isDestroyingSameCells = true;
 			
 			List<TileData> tileDataList = new List<TileData>();
 
@@ -300,7 +303,7 @@ namespace Controllers.Game
 			{ 
 				foreach (var tile in row.tiles)
 				{
-					if (tile.Type.id == selectedTile.Type.id)
+					if (tile.Type.id == selectedTile.Type.id && !tile.IsNotSwap)
 					{
 						tileDataList.Add(tile.Data);
 					}
@@ -318,8 +321,6 @@ namespace Controllers.Game
 					tile.SetSelectedImage(true);
 					deflateSequence.Join(tile.icon.transform.DOScale(Vector3.zero, _tweenDuration).SetEase(Ease.InBack));
 				}
-				
-				CellsSwappedAction.Invoke(1);
 
 				await deflateSequence.Play()
 					.AsyncWaitForCompletion();
@@ -345,6 +346,8 @@ namespace Controllers.Game
 
 					matrix = Matrix;
 				}
+				
+				CellsSwappedAction.Invoke(1);
 			}
 
 			_isDestroyingSameCells = false;
@@ -361,7 +364,7 @@ namespace Controllers.Game
 			{
 				foreach (var tile in row.tiles)
 				{
-					if (tile.x == selectedTile.x)
+					if (tile.x == selectedTile.x && !tile.IsNotSwap)
 					{
 						tileDataList.Add(tile.Data);
 					}
@@ -394,8 +397,6 @@ namespace Controllers.Game
 					inflateSequence.Join(tile.icon.transform.DOScale(Vector3.one, _tweenDuration)
 						.SetEase(Ease.OutBack));
 				}
-				
-				CellsSwappedAction.Invoke(2);
 
 				await inflateSequence.Play()
 					.AsyncWaitForCompletion();
@@ -408,6 +409,8 @@ namespace Controllers.Game
 
 					matrix = Matrix;
 				}
+				
+				CellsSwappedAction.Invoke(2);
 			}
 
 			_isDestroyingOneColumn = false;

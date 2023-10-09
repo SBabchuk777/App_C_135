@@ -106,18 +106,20 @@ namespace Controllers.SceneControllers
                     break;
                 case 1:
                     _currentScore += 100;
+                    _model.SameCellsBoosterCount--;
+                    _destroySameCellsBtn.interactable = true;
+                    CheckCountBooster();
                     break;
                 case 2:
                     _currentScore += 50;
+                    _model.OneColumnBoosterCount--;
+                    _destroyOneColumnBtn.interactable = true;
+                    CheckCountBooster();
                     break;
             }
-            
-            Debug.Log("AddPoints");
-            
+
             var remainderTarget = _model.RemainderTarget(_currentScore);
             UpdateRemainderTarget(remainderTarget);
-            
-            Debug.Log(remainderTarget >= 0 ? "Win" : "Continue");
 
             if (remainderTarget >= 0)
             {
@@ -158,8 +160,7 @@ namespace Controllers.SceneControllers
             if (_model.SameCellsBoosterCount > 0)
             {
                 _boardController.ChangeCanDestroySameCells();
-                _model.SameCellsBoosterCount--;
-                CheckCountBooster();
+                _destroySameCellsBtn.interactable = false;
             }
         }
 
@@ -168,8 +169,7 @@ namespace Controllers.SceneControllers
             if (_model.OneColumnBoosterCount > 0)
             {
                 _boardController.ChangeCanDestroyOneColumn();
-                _model.OneColumnBoosterCount--;
-                CheckCountBooster();
+                _destroyOneColumnBtn.interactable = false;
             }
         }
 
