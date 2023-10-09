@@ -102,7 +102,7 @@ MonoBehaviour:
   - {fileID: 1438651494665566217}
   - {fileID: 1438651493170417994}
   - {fileID: 1438651493020973605}
-  _tweenDuration: 0.5
+  _tweenDuration: 0.25
   _swappingOverlay: {fileID: 0}
   _ensureNoStartingMatches: 1
 --- !u!1001 &836415566771693389

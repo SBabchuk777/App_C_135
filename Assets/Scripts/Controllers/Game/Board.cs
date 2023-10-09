@@ -17,7 +17,7 @@ namespace Controllers.Game
 {
 	public sealed class Board : MonoBehaviour
 	{
-		public Action CellsSwappedAction
+		public Action<int> CellsSwappedAction
 		{
 			get;
 			set;
@@ -39,12 +39,26 @@ namespace Controllers.Game
 		private bool _isSwapping;
 		private bool _isMatching;
 		private bool _isShuffling;
+		private bool _isDestroyingSameCells;
+		private bool _canDestroyingSameCells;
+		private bool _isDestroyingOneColumn;
+		private bool _canDestroyOneColumn;
 
 		public event Action<TileTypeAsset, int> OnMatch;
 
 		public void SetSwappingOverlayTransform(Transform swappingOverlay)
 		{
 			_swappingOverlay = swappingOverlay;
+		}
+
+		public void ChangeCanDestroySameCells()
+		{
+			_canDestroyingSameCells = true;
+		}
+
+		public void ChangeCanDestroyOneColumn()
+		{
+			_canDestroyOneColumn = true;
 		}
 
 		private TileData[,] Matrix
@@ -127,19 +141,49 @@ namespace Controllers.Game
 
 		private async void Select(Tile tile)
 		{
-			if (_isSwapping || _isMatching || _isShuffling) return;
+			if (_isSwapping || _isMatching || _isShuffling || _isDestroyingSameCells || _isDestroyingOneColumn) return;
 
 			if (!_selection.Contains(tile))
 			{
 				if (_selection.Count > 0)
 				{
-					if (Math.Abs(tile.x - _selection[0].x) == 1 && Math.Abs(tile.y - _selection[0].y) == 0
-					    || Math.Abs(tile.y - _selection[0].y) == 1 && Math.Abs(tile.x - _selection[0].x) == 0)
-						_selection.Add(tile);
+					if (!_canDestroyingSameCells && !_canDestroyOneColumn)
+					{
+						if (Math.Abs(tile.x - _selection[0].x) == 1 && Math.Abs(tile.y - _selection[0].y) == 0
+						    || Math.Abs(tile.y - _selection[0].y) == 1 && Math.Abs(tile.x - _selection[0].x) == 0)
+						{
+							_selection.Add(tile);
+						}
+						else
+						{
+							_selection.Clear();
+						}
+					}
+					else if(_canDestroyingSameCells)
+					{
+						await DestroySameCells(tile);
+						_selection.Clear();
+					}
+					else if(_canDestroyOneColumn)
+					{
+						await DestroyOneColumn(tile);
+						_selection.Clear();
+					}
 				}
 				else
 				{
 					_selection.Add(tile);
+					
+					if (_canDestroyingSameCells)
+					{
+						await DestroySameCells(tile);
+						_selection.Clear();
+					}
+					else if (_canDestroyOneColumn)
+					{
+						await DestroyOneColumn(tile);
+						_selection.Clear();
+					}
 				}
 			}
 
@@ -212,9 +256,13 @@ namespace Controllers.Game
 
 				var deflateSequence = DOTween.Sequence();
 
-				foreach (var tile in tiles) deflateSequence.Join(tile.icon.transform.DOScale(Vector3.zero, _tweenDuration).SetEase(Ease.InBack));
+				foreach (var tile in tiles)
+				{
+					tile.SetSelectedImage(true);
+					deflateSequence.Join(tile.icon.transform.DOScale(Vector3.zero, _tweenDuration).SetEase(Ease.InBack));
+				}
 
-				CellsSwappedAction.Invoke();
+				CellsSwappedAction.Invoke(0);
 				
 				await deflateSequence.Play()
 				                     .AsyncWaitForCompletion();
@@ -223,6 +271,7 @@ namespace Controllers.Game
 
 				foreach (var tile in tiles)
 				{
+					tile.SetSelectedImage(false);
 					tile.Type = _tileTypes[Random.Range(0, _tileTypes.Length)];
 
 					inflateSequence.Join(tile.icon.transform.DOScale(Vector3.one, _tweenDuration).SetEase(Ease.OutBack));
@@ -239,6 +288,130 @@ namespace Controllers.Game
 			_isMatching = false;
 
 			return didMatch;
+		}
+
+		private async Task DestroySameCells(Tile selectedTile)
+		{
+			_isDestroyingOneColumn = true;
+			
+			List<TileData> tileDataList = new List<TileData>();
+
+			foreach (var row in _rows)
+			{ 
+				foreach (var tile in row.tiles)
+				{
+					if (tile.Type.id == selectedTile.Type.id)
+					{
+						tileDataList.Add(tile.Data);
+					}
+				}
+			}
+
+			if (tileDataList.Count > 0)
+			{
+				var tiles = GetTiles(tileDataList);
+				
+				var deflateSequence = DOTween.Sequence();
+
+				foreach (var tile in tiles)
+				{
+					tile.SetSelectedImage(true);
+					deflateSequence.Join(tile.icon.transform.DOScale(Vector3.zero, _tweenDuration).SetEase(Ease.InBack));
+				}
+				
+				CellsSwappedAction.Invoke(1);
+
+				await deflateSequence.Play()
+					.AsyncWaitForCompletion();
+
+				var inflateSequence = DOTween.Sequence();
+
+				foreach (var tile in tiles)
+				{
+					tile.SetSelectedImage(false);
+					tile.Type = _tileTypes[Random.Range(0, _tileTypes.Length)];
+
+					inflateSequence.Join(tile.icon.transform.DOScale(Vector3.one, _tweenDuration).SetEase(Ease.OutBack));
+				}
+
+				await inflateSequence.Play()
+					.AsyncWaitForCompletion();
+				
+				var matrix = Matrix;
+
+				while (TileDataMatrixUtility.FindBestMove(matrix) == null || TileDataMatrixUtility.FindBestMatch(matrix) != null)
+				{
+					Shuffle();
+
+					matrix = Matrix;
+				}
+			}
+
+			_isDestroyingSameCells = false;
+			_canDestroyingSameCells = false;
+		}
+
+		private async Task DestroyOneColumn(Tile selectedTile)
+		{
+			_isDestroyingOneColumn = true;
+
+			List<TileData> tileDataList = new List<TileData>();
+
+			foreach (var row in _rows)
+			{
+				foreach (var tile in row.tiles)
+				{
+					if (tile.x == selectedTile.x)
+					{
+						tileDataList.Add(tile.Data);
+					}
+				}
+			}
+
+			if (tileDataList.Count > 0)
+			{
+				var tiles = GetTiles(tileDataList);
+
+				var deflateSequence = DOTween.Sequence();
+
+				foreach (var tile in tiles)
+				{
+					tile.SetSelectedImage(true);
+					deflateSequence.Join(tile.icon.transform.DOScale(Vector3.zero, _tweenDuration)
+						.SetEase(Ease.InBack));
+				}
+
+				await deflateSequence.Play()
+					.AsyncWaitForCompletion();
+
+				var inflateSequence = DOTween.Sequence();
+
+				foreach (var tile in tiles)
+				{
+					tile.SetSelectedImage(false);
+					tile.Type = _tileTypes[Random.Range(0, _tileTypes.Length)];
+
+					inflateSequence.Join(tile.icon.transform.DOScale(Vector3.one, _tweenDuration)
+						.SetEase(Ease.OutBack));
+				}
+				
+				CellsSwappedAction.Invoke(2);
+
+				await inflateSequence.Play()
+					.AsyncWaitForCompletion();
+
+				var matrix = Matrix;
+
+				while (TileDataMatrixUtility.FindBestMove(matrix) == null || TileDataMatrixUtility.FindBestMatch(matrix) != null)
+				{
+					Shuffle();
+
+					matrix = Matrix;
+				}
+			}
+
+			_isDestroyingOneColumn = false;
+			_canDestroyOneColumn = false;
 		}
 
 		private void Shuffle()

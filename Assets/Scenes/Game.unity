@@ -134,8 +134,9 @@ GameObject:
   - component: {fileID: 30894262}
   - component: {fileID: 30894264}
   - component: {fileID: 30894263}
+  - component: {fileID: 30894265}
   m_Layer: 5
-  m_Name: RemainderGoalText
+  m_Name: RemainderTargetText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,6 +204,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 30894261}
   m_CullTransparentMesh: 1
+--- !u!114 &30894265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30894261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf2a0a7d7efa4fb087ffd854c043042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 30894263}
+  _stringInText: EX
+  _isFirstString: 0
 --- !u!1 &67981984
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,6 +604,14 @@ MonoBehaviour:
   - {fileID: 2059456359150736400, guid: 1c8e43b6e8f2a409aa9570f1318b0fce, type: 3}
   _gameBoardRect: {fileID: 1576271915}
   _swappingOverlayRectTransform: {fileID: 610944087}
+  _levelCounterView: {fileID: 435935696}
+  _targetView: {fileID: 1685286972}
+  _remainderTargetView: {fileID: 30894265}
+  _targetPanelView: {fileID: 926208715}
+  _boosterZoneView: {fileID: 1046525831}
+  _destroySameCellsBtn: {fileID: 622430581}
+  _destroyOneColumnBtn: {fileID: 778481807}
+  _backBtn: {fileID: 1416809299}
 --- !u!4 &342972512
 Transform:
   m_ObjectHideFlags: 0
@@ -815,6 +839,7 @@ GameObject:
   - component: {fileID: 435935693}
   - component: {fileID: 435935695}
   - component: {fileID: 435935694}
+  - component: {fileID: 435935696}
   m_Layer: 5
   m_Name: LevelCounterText
   m_TagString: Untagged
@@ -884,6 +909,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435935692}
   m_CullTransparentMesh: 1
+--- !u!114 &435935696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435935692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf2a0a7d7efa4fb087ffd854c043042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 435935694}
+  _stringInText: Level
+  _isFirstString: 1
 --- !u!1 &545314324
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,6 +933,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 545314325}
+  - component: {fileID: 545314326}
   m_Layer: 5
   m_Name: BoostersZone
   m_TagString: Untagged
@@ -923,6 +964,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0.00022888, y: -212.86}
   m_SizeDelta: {x: 843.55, y: 425.71}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &545314326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545314324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870c64afa7eb44c9d94a2fd3d6f0b123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _firstBoosterCountText: {fileID: 399494729}
+  _secondBoosterCountText: {fileID: 67981986}
+  _firstCounterImage: {fileID: 0}
+  _secondCounterImage: {fileID: 0}
+  _firstBtn: {fileID: 0}
+  _secondBtn: {fileID: 0}
 --- !u!1 &554435244
 GameObject:
   m_ObjectHideFlags: 0
@@ -1923,6 +1982,7 @@ GameObject:
   - component: {fileID: 926208712}
   - component: {fileID: 926208714}
   - component: {fileID: 926208713}
+  - component: {fileID: 926208715}
   m_Layer: 5
   m_Name: TargetPanel
   m_TagString: Untagged
@@ -1991,6 +2051,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 926208711}
   m_CullTransparentMesh: 1
+--- !u!114 &926208715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926208711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 962a864f2a36346e5ac05cc6efa7c7da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _boosterZoneView: {fileID: 545314326}
+  _targetText: {fileID: 1679313297}
+  _countLeveltext: {fileID: 804934168}
+  _startBtn: {fileID: 355994226}
+  _backBtn: {fileID: 2143293386}
 --- !u!1 &955481491
 GameObject:
   m_ObjectHideFlags: 0
@@ -2094,6 +2171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1046525830}
+  - component: {fileID: 1046525831}
   m_Layer: 5
   m_Name: BoostersZone
   m_TagString: Untagged
@@ -2124,6 +2202,24 @@ RectTransform:
   m_AnchoredPosition: {x: -0.0017242, y: -949.31354}
   m_SizeDelta: {x: 1092.1, y: 325.9869}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1046525831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1046525829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870c64afa7eb44c9d94a2fd3d6f0b123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _firstBoosterCountText: {fileID: 340719414}
+  _secondBoosterCountText: {fileID: 878216446}
+  _firstCounterImage: {fileID: 1690431015}
+  _secondCounterImage: {fileID: 554435246}
+  _firstBtn: {fileID: 622430581}
+  _secondBtn: {fileID: 778481807}
 --- !u!1 &1147082261
 GameObject:
   m_ObjectHideFlags: 0
@@ -2615,6 +2711,7 @@ GameObject:
   - component: {fileID: 1685286969}
   - component: {fileID: 1685286971}
   - component: {fileID: 1685286970}
+  - component: {fileID: 1685286972}
   m_Layer: 5
   m_Name: TargetZone
   m_TagString: Untagged
@@ -2682,6 +2779,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1685286968}
   m_CullTransparentMesh: 1
+--- !u!114 &1685286972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685286968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf2a0a7d7efa4fb087ffd854c043042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 1595156674}
+  _stringInText: EX
+  _isFirstString: 0
 --- !u!1 &1690431013
 GameObject:
   m_ObjectHideFlags: 0

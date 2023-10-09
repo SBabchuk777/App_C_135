@@ -8,6 +8,8 @@ namespace Views.Game
 	{
 		[SerializeField] 
 		private bool _isNotSwap;
+		[SerializeField] 
+		private Image _selectedImage;
 		
 		public int x;
 		public int y;
@@ -34,6 +36,11 @@ namespace Views.Game
 				iconRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,iconRect.rect.width/7f);
 				iconRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,iconRect.rect.height/7f);
 			}
+		}
+
+		public void SetSelectedImage(bool value)
+		{
+			_selectedImage.gameObject.SetActive(value);
 		}
 
 		public TileData Data => new TileData(x, y, _type.id, _isNotSwap);
