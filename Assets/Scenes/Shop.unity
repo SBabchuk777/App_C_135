@@ -1976,6 +1976,10 @@ PrefabInstance:
       value: 5437523
       objectReference: {fileID: 0}
     - target: {fileID: 2479997051622438334, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
+      propertyPath: _parentFader
+      value: 
+      objectReference: {fileID: 1316826896}
+    - target: {fileID: 2479997051622438334, guid: 41ad9dbb8400547c0b2bcc64919c85c0, type: 3}
       propertyPath: _gameIdAndroid
       value: 5437522
       objectReference: {fileID: 0}

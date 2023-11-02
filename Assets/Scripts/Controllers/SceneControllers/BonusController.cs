@@ -104,7 +104,7 @@ namespace Controllers.SceneControllers
                 PlaySound(_clickClip);
             }
 
-            StartCoroutine(DelayLoadScene());
+            StartCoroutine(DelayLoadScene(isClick));
         }
 
         private void CheckLastDay()
@@ -115,9 +115,11 @@ namespace Controllers.SceneControllers
             }
         }
 
-        private IEnumerator DelayLoadScene()
+        private IEnumerator DelayLoadScene(bool isDelay)
         {
-            yield return new WaitForSeconds(0.3f);
+            float delay = isDelay ? 0.3f : 0;
+            
+            yield return new WaitForSeconds(delay);
             
             SceneManager.LoadScene("Menu");
         }
