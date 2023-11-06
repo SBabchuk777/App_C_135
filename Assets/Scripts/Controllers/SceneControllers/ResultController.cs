@@ -1,17 +1,21 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
 using Models.Game;
+using Views.Result;
 
 namespace Controllers.SceneControllers
 {
     public class ResultController : AbstractController
     {
-        [Space(5)]
-        [Header("Texts")]
+        [Space(5)] [Header("Views")] 
+        [SerializeField]
+        private ResultView _resultView;
+        [Space(5)] [Header("Texts")]
         [SerializeField] 
         private Text _coinsCountText;
         [SerializeField] 
@@ -59,7 +63,20 @@ namespace Controllers.SceneControllers
 
             TimeSpan time = TimeSpan.FromSeconds(_model.TotalSeconds);
 
-            _timeText.text = "Time: " + time.Minutes + " min " + time.Seconds + "sec";
+            _timeText.text = "Time: " + time.Minutes + " min " + time.Seconds + " sec";
+
+            switch (time.Minutes)
+            {
+                case < 4:
+                    _resultView.UpdateImages(3);
+                    break;
+                case < 8:
+                    _resultView.UpdateImages(2);
+                    break;
+                default:
+                    _resultView.UpdateImages(1);
+                    break;
+            }
         }
 
         private void LoadScene(string nameScene)

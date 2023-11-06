@@ -578,6 +578,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 517319480}
+  - component: {fileID: 517319481}
   m_Layer: 5
   m_Name: StarsZone
   m_TagString: Untagged
@@ -608,6 +609,29 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 144.98706}
   m_SizeDelta: {x: 948.7653, y: 308.6464}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &517319481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517319479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca6c05c8ef89545389f8ab7cd34a8e54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _starImages:
+  - {fileID: 794804424}
+  - {fileID: 1037277685}
+  - {fileID: 1823902626}
+  _starSprites:
+  - {fileID: 21300000, guid: 02599d7c06e4e44628fe8d747ec2c783, type: 3}
+  - {fileID: 21300000, guid: 6a6a976efda99432f83a21cfb11cf840, type: 3}
+  _levelResultImage: {fileID: 1189529800}
+  _levelResultSprites:
+  - {fileID: -19632303, guid: 7c16b8d627b1a4c2d85f975baea7a237, type: 3}
+  - {fileID: -364174307, guid: 23a84e32aa1f742319827f97b7d2e8de, type: 3}
 --- !u!1 &540293158
 GameObject:
   m_ObjectHideFlags: 0
@@ -1389,6 +1413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _soundSource: {fileID: 1018468409}
+  _resultView: {fileID: 517319481}
   _coinsCountText: {fileID: 441578081}
   _scoreText: {fileID: 807563520}
   _timeText: {fileID: 1729016334}
