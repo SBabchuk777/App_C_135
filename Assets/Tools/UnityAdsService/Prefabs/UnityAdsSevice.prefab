@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameIdAndroid: 5352894
   _gameIdIos: 5352895
-  _testMode: 1
+  _testMode: 0
   _faderViewPrefab: {fileID: 1740607287596633119, guid: 5f9403f2350dc480f88b5ac24428e565, type: 3}
   _parentFader: {fileID: 4665618644605151818}
 --- !u!1 &3193776038494175552
