@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameIdAndroid: 5352894
   _gameIdIos: 5352895
-  _testMode: 1
+  _testMode: 0
   _faderViewPrefab: {fileID: 1740607287596633119, guid: 5f9403f2350dc480f88b5ac24428e565, type: 3}
   _parentFader: {fileID: 4665618644605151818}
 --- !u!1 &3193776038494175552
@@ -143,7 +143,7 @@ Canvas:
   m_GameObject: {fileID: 4665618644605151821}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 4665618645193907466}
   m_PlaneDistance: 10
   m_PixelPerfect: 0
@@ -153,7 +153,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 30
+  m_SortingOrder: 1000
   m_TargetDisplay: 0
 --- !u!114 &4665618644605151816
 MonoBehaviour:
