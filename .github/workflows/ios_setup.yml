@@ -10,8 +10,6 @@ jobs:
       #  Checkout  #
       ##############
       - uses: actions/checkout@v4
-        with:
-          ref: IOSBuild
 
       ################
       #  Setup ruby  #
@@ -21,9 +19,9 @@ jobs:
           ruby-version: 3.2
           bundler-cache: true
 
-      ###############
-      #  Build iOS  #
-      ###############
+      #######################
+      #  Fastlane ios init  #
+      #######################
       - name: Build iOS
         shell: bash
         run: |
