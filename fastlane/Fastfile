@@ -83,6 +83,8 @@ platform :ios do
     build_app( #alias: gym
       workspace: "#{ENV['IOS_BUILD_PATH']}/iOS/Unity-iPhone.xcworkspace",
       scheme: 'Unity-iPhone',
+      export_method: "app-store", # Додано для вказівки методу експорту
+      destination: "generic/platform=iOS", # Додано для вказівки загальної платформи
       xcargs: '-allowProvisioningUpdates'
     )
 
