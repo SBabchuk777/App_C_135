@@ -74,11 +74,22 @@ platform :ios do
       profile_uuid: ENV["sigh_#{ENV['IOS_BUNDLE_ID']}_appstore"]
     )
 
+    cocoapods( # Додавання цього кроку для встановлення Cocoapods
+      clean_install: true,
+      podfile: "#{ENV['IOS_BUILD_PATH']}/iOS/"
+    )
+
     build_app( #alias: gym
-      project: "#{ENV['IOS_BUILD_PATH']}/iOS/Unity-iPhone.xcodeproj",
+      workspace: "#{ENV['IOS_BUILD_PATH']}/iOS/Unity-iPhone.xcworkspace",
       scheme: 'Unity-iPhone',
       xcargs: '-allowProvisioningUpdates'
     )
+
+    #build_app( #alias: gym
+    #  project: "#{ENV['IOS_BUILD_PATH']}/iOS/Unity-iPhone.xcodeproj",
+    #  scheme: 'Unity-iPhone',
+    #  xcargs: '-allowProvisioningUpdates'
+    #)
   end
 
 end
