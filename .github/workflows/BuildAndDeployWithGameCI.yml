@@ -82,11 +82,6 @@ jobs:
           name: cgs-iOS
           path: build/iOS
       
-      - name: Update Release Notes
-        env:
-          RELEASE_NOTES: ${{ github.event.release.body }}
-        run: echo "$RELEASE_NOTES" > fastlane/metadata/en-US/release_notes.txt
-      
       - name: Fix File Permissions and Run Fastlane
         env:
           APPLE_CONNECT_EMAIL: ${{ secrets.APPLE_CONNECT_EMAIL }}
