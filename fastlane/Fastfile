@@ -1,9 +1,10 @@
 org, repo = (ENV["GITHUB_REPOSITORY"]||"").split("/")
 match_org, match_repo = (ENV["MATCH_REPOSITORY"]||"").split("/")
 
+opt_out_usage
+
 platform :ios do
   lane :init_ci do
-    fastlane_core_print_command_output(true) # Додайте цей рядок
     github_action(
       api_token: ENV["GH_PAT"],
       org: org,
