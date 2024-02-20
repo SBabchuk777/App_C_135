@@ -54,6 +54,11 @@ platform :ios do
 
   desc "Create .ipa"
   lane :build do
+    cocoapods( # Додавання цього кроку для встановлення Cocoapods
+      clean_install: true,
+      podfile: "#{ENV['IOS_BUILD_PATH']}/iOS/"
+    )
+
     setup_ci
 
     sync_certificates
@@ -73,11 +78,6 @@ platform :ios do
       path: "#{ENV['IOS_BUILD_PATH']}/iOS/Unity-iPhone.xcodeproj",
       profile_name: ENV["sigh_#{ENV['IOS_BUNDLE_ID']}_appstore_profile-name"],
       profile_uuid: ENV["sigh_#{ENV['IOS_BUNDLE_ID']}_appstore"]
-    )
-
-    cocoapods( # Додавання цього кроку для встановлення Cocoapods
-      clean_install: true,
-      podfile: "#{ENV['IOS_BUILD_PATH']}/iOS/"
     )
 
     build_app( #alias: gym
