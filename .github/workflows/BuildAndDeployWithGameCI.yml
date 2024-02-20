@@ -66,24 +66,7 @@ jobs:
         with:
           path: build/${{ matrix.targetPlatform }}
           name: cgs-${{ matrix.targetPlatform }}
-      
-      - name: Zip Build
-        uses: vimtor/action-zip@v1.2
-        if: github.event.action == 'published' && matrix.targetPlatform == 'StandaloneLinux64'
-        with:
-          files: build/${{ matrix.targetPlatform }}/
-          dest: cgs-${{ matrix.targetPlatform }}.zip
-      
-      - name: Upload Zip to GitHub Release
-        uses: svenstaro/upload-release-action@v2
-        if: github.event.action == 'published' && matrix.targetPlatform == 'StandaloneLinux64'
-        with:
-          repo_token: ${{ secrets.CGS_PAT }}
-          asset_name: cgs-${{ matrix.targetPlatform }}.zip
-          file: cgs-${{ matrix.targetPlatform }}.zip
-          tag: ${{ github.ref }}
-          overwrite: true
-          body: ${{ github.event.release.body }}
+
 
   deployToAppStore:
     name: Deploy to the App Store
@@ -100,7 +83,6 @@ jobs:
           path: build/iOS
       
       - name: Update Release Notes
-        if: github.event.action == 'published'
         env:
           RELEASE_NOTES: ${{ github.event.release.body }}
         run: echo "$RELEASE_NOTES" > fastlane/metadata/en-US/release_notes.txt
