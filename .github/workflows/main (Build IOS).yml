@@ -113,9 +113,6 @@ jobs:
           bundle exec fastlane ios release
           #bundle exec fastlane ios beta
           #bundle exec fastlane ios build
-          
-          bundle install
-          bundle exec fastlane ios release
 
       ####################################
       #  Cleanup to avoid storage limit  #
