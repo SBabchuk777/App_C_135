@@ -3,7 +3,6 @@ match_org, match_repo = (ENV["MATCH_REPOSITORY"]||"").split("/")
 
 platform :ios do
   lane :init_ci do
-    xcversion(version: "14.2") # Вибрати Xcode 14.2
     github_action(
       api_token: ENV["GH_PAT"],
       org: org,
@@ -33,9 +32,15 @@ platform :ios do
 
   desc "Deliver a new Release build to the App Store"
   lane :release do
-    version = ENV['APP_VERSION'] # Отримання версії з середовища
     build
-    upload_to_app_store(app_version: version) # Виставлення додатка в App Store з використанням версії
+    deliver
+    upload_to_app_store(
+      submit_for_review: false,
+      automatic_release: false,
+      force: true,
+      skip_screenshots: true,
+      run_precheck_before_submit: false
+    )
   end
 
   desc "Deliver a new Beta build to Apple TestFlight"
@@ -54,11 +59,6 @@ platform :ios do
 
   desc "Create .ipa"
   lane :build do
-     cocoapods( # Додавання цього кроку для встановлення Cocoapods
-      clean_install: true,
-      podfile: "#{ENV['IOS_BUILD_PATH']}/iOS/"
-    )
-
     setup_ci
 
     sync_certificates
@@ -81,18 +81,10 @@ platform :ios do
     )
 
     build_app( #alias: gym
-      workspace: "#{ENV['IOS_BUILD_PATH']}/iOS/Unity-iPhone.xcworkspace",
+      project: "#{ENV['IOS_BUILD_PATH']}/iOS/Unity-iPhone.xcodeproj",
       scheme: 'Unity-iPhone',
-      #export_method: "app-store", # Додано для вказівки методу експорту
-      #destination: "generic/platform=iOS", # Додано для вказівки загальної платформи
       xcargs: '-allowProvisioningUpdates'
     )
-
-    #build_app( #alias: gym
-    #  project: "#{ENV['IOS_BUILD_PATH']}/iOS/Unity-iPhone.xcodeproj",
-    #  scheme: 'Unity-iPhone',
-    #  xcargs: '-allowProvisioningUpdates'
-    #)
   end
 
 end
