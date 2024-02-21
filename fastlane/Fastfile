@@ -3,7 +3,7 @@ match_org, match_repo = (ENV["MATCH_REPOSITORY"]||"").split("/")
 
 platform :ios do
   lane :init_ci do
-    #xcversion(version: "14.2") # Вибрати Xcode 14.2
+    xcversion(version: "14.2") # Вибрати Xcode 14.2
     github_action(
       api_token: ENV["GH_PAT"],
       org: org,
