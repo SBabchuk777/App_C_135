@@ -182,7 +182,7 @@ namespace Balaso
                 File.WriteAllText(infoPlistStringsFilePath, "/* Localized versions of Info.plist keys */\n" + localizedDescriptionLine);
             }
 
-            var guid = project.AddFolderReference(localeSpecificDirectoryPath, Path.Combine(resourcesDirectoryName, localeSpecificDirectoryName), PBXSourceTree.Source);
+            var guid = project.AddFolderReference($"{resourcesDirectoryName}/{localeSpecificDirectoryName}", Path.Combine(resourcesDirectoryName, localeSpecificDirectoryName), PBXSourceTree.Source);
             project.AddFileToBuild(targetGuid, guid);
         }
 
