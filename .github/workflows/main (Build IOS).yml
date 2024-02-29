@@ -109,9 +109,9 @@ jobs:
           APPSTORE_P8: ${{ secrets.APPSTORE_P8 }}
 
           IOS_BUILD_PATH: ${{ format('{0}/build/iOS', github.workspace) }}
-          IOS_BUNDLE_ID: ${{ secrets.IOS_BUNDLE_ID }}
-          APP_VERSION: ${{ secrets.APP_VERSION }}
-          PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
+           IOS_BUNDLE_ID: com.TestCI.TestCI
+          APP_VERSION: "1.0.0"
+          PROJECT_NAME: Testfor
         run: |
           eval "$(ssh-agent -s)"
           ssh-add - <<< "${MATCH_DEPLOY_KEY}"
