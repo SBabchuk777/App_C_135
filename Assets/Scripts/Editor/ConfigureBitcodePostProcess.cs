@@ -1,18 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+#if UNITY_IOS
+using UnityEditor;
+using UnityEditor.Callbacks;
+using UnityEditor.iOS.Xcode;
+using System.IO;
 
-public class ConfigureBitcodePostProcess : MonoBehaviour
+public class ConfigureBitcodePostProcess
 {
-    // Start is called before the first frame update
-    void Start()
+    [PostProcessBuild]
+    public static void EnableBitcode(BuildTarget buildTarget, string pathToBuiltProject)
     {
-        
-    }
+        if (buildTarget == BuildTarget.iOS)
+        {
+            string projectPath = PBXProject.GetPBXProjectPath(pathToBuiltProject);
+            PBXProject project = new PBXProject();
+            project.ReadFromFile(projectPath);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            string targetGuid = project.GetUnityFrameworkTargetGuid();
+
+            project.SetBuildProperty(targetGuid, "ENABLE_BITCODE", "NO");
+
+            string[] targetNames = project.GetTargetNames();
+            foreach (string targetName in targetNames)
+            {
+                if (targetNsame.EndsWith("OneSignalNotificationServiceExtension"))
+                {
+                    string targetGuidExtension = project.GetTargetGuidByName(targetName);
+                    project.SetBuildProperty(targetGuidExtension, "ENABLE_BITCODE", "NO");
+                }
+            }
+
+            File.WriteAllText(projectPath, project.WriteToString());
+        }
     }
 }
+#endif
