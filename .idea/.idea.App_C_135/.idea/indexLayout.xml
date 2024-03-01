@@ -3,10 +3,9 @@
   <component name="ContentModelUserStore">
     <attachedFolders />
     <explicitIncludes>
-      <Path>Assets</Path>
-      <Path>Library/PackageCache/com.onesignal.unity.android@3.0.4</Path>
-      <Path>Library/PackageCache/com.onesignal.unity.core@3.0.4</Path>
-      <Path>Library/PackageCache/com.onesignal.unity.ios@3.0.4</Path>
+      <Path>Library/PackageCache/com.onesignal.unity.android@5.1.0</Path>
+      <Path>Library/PackageCache/com.onesignal.unity.core@5.1.0</Path>
+      <Path>Library/PackageCache/com.onesignal.unity.ios@5.1.0</Path>
       <Path>Library/PackageCache/com.unity.ads.ios-support@1.0.0</Path>
       <Path>Library/PackageCache/com.unity.ads@4.4.2</Path>
       <Path>Library/PackageCache/com.unity.collab-proxy@2.0.1</Path>
@@ -34,6 +33,7 @@
       <Path>Temp</Path>
       <Path>UserSettings</Path>
       <Path>fastlane</Path>
+      <Path>obj</Path>
     </explicitExcludes>
   </component>
   <component name="UserContentModel">

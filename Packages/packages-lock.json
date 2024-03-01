@@ -1,27 +1,27 @@
 {
   "dependencies": {
     "com.onesignal.unity.android": {
-      "version": "3.0.4",
+      "version": "5.1.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.onesignal.unity.core": "3.0.4"
+        "com.onesignal.unity.core": "5.1.0"
       },
       "url": "https://registry.npmjs.org"
     },
     "com.onesignal.unity.core": {
-      "version": "3.0.4",
-      "depth": 0,
+      "version": "5.1.0",
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://registry.npmjs.org"
     },
     "com.onesignal.unity.ios": {
-      "version": "3.0.4",
+      "version": "5.1.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.onesignal.unity.core": "3.0.4"
+        "com.onesignal.unity.core": "5.1.0"
       },
       "url": "https://registry.npmjs.org"
     },

@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "com.onesignal.unity.android": "3.0.4",
+    "com.onesignal.unity.android": "5.1.0",
     "com.onesignal.unity.core": "3.0.4",
-    "com.onesignal.unity.ios": "3.0.4",
+    "com.onesignal.unity.ios": "5.1.0",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ads": "4.4.2",
     "com.unity.ads.ios-support": "1.0.0",
