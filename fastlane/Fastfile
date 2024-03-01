@@ -134,6 +134,9 @@ platform :ios do
     # Install pods
     install_pods
 
+    # Disable Bitcode
+    sh "xcodebuild -workspace #{ENV['IOS_BUILD_PATH']}/iOS/Unity-iPhone.xcworkspace -scheme Unity-iPhone BITCODE_ENABLED=NO"
+
     build_app( #alias: gym
       workspace: "#{ENV['IOS_BUILD_PATH']}/iOS/Unity-iPhone.xcworkspace",
       # project: "#{ENV['IOS_BUILD_PATH']}/iOS/Unity-iPhone.xcodeproj",
