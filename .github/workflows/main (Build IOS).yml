@@ -110,7 +110,7 @@ jobs:
 
           IOS_BUILD_PATH: ${{ format('{0}/build/iOS', github.workspace) }}
           IOS_BUNDLE_ID: com.TestCI.TestCI
-          APP_VERSION: "1.0.1"
+          APP_VERSION: "1.0.0"
           PROJECT_NAME: TestforCI
         run: |
           eval "$(ssh-agent -s)"
