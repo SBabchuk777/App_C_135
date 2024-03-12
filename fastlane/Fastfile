@@ -68,6 +68,7 @@ platform :ios do
       plist_path: 'Info.plist',
       block: proc do |plist|
         plist['MinimumOSVersion'] = '11.0'
+        plist['NSLocationWhenInUseUsageDescription'] = 'Allow access to location for app usage' # Добавив ось цей фрагмент, адже проблеми із скачуванням із тест флая
       end
     )
 
