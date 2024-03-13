@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyAeroqQuVnC7PujLbn3xwWL8NpuZFa8VUE</string>
+	<string>AIzaSyANEHLsSK8KIruf6tYgWoQwFo8qRAuYhmg</string>
 	<key>GCM_SENDER_ID</key>
-	<string>844504028955</string>
+	<string>628793757864</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.tajiservi.app</string>
+	<string>com.TestCI.UnityCI</string>
 	<key>PROJECT_ID</key>
-	<string>c135-756bf</string>
+	<string>unity-ci-test-530b3</string>
 	<key>STORAGE_BUCKET</key>
-	<string>c135-756bf.appspot.com</string>
+	<string>unity-ci-test-530b3.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:844504028955:ios:0bb91098ff4e7ca574a5be</string>
+	<string>1:628793757864:ios:9b008d09b0385cf766729d</string>
 </dict>
 </plist>

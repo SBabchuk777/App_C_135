@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using Balaso;
-//using Prototype.SceneLoaderCore.Helpers;
+using Prototype.SceneLoaderCore.Helpers;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -32,7 +32,7 @@ public class AppTrackingTransparencyExample : MonoBehaviour
         }
         else
         {
-            //SceneLoader.Instance.SwitchToScene("Preloader");
+            SceneLoader.Instance.SwitchToScene("Preloader");
         }
 #endif
     }
@@ -64,7 +64,7 @@ public class AppTrackingTransparencyExample : MonoBehaviour
         // Obtain IDFA
         Debug.Log(string.Format("IDFA: {0}", AppTrackingTransparency.IdentifierForAdvertising()));
 
-        //SceneLoader.Instance.SwitchToScene("Preloader");
+        SceneLoader.Instance.SwitchToScene("Preloader");
     }
 #endif
 }   
